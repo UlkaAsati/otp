@@ -24,30 +24,30 @@ addons:
 matrix:
   include:
     # Dialyzer is first as it takes the longest to run
-    - env: Linux64Dialyzer
-      addons:
-        apt:
-          packages:
+  #  - env: Linux64Dialyzer
+  #    addons:
+  #      apt:
+  #        packages:
             # Don't build with wx, java or xslt to get faster build
-            - autoconf
-            - libncurses-dev
-            - build-essential
-            - libssl-dev
-      script:
-        - ./scripts/build-otp
-        - ./scripts/run-dialyzer
+  #          - autoconf
+  #          - libncurses-dev
+  #          - build-essential
+  #          - libssl-dev
+ #     script:
+  #      - ./scripts/build-otp
+  #      - ./scripts/run-dialyzer
 
-    - env: Linux32
-      services:
-        - docker
-      script:
-        - ./scripts/build-docker-otp 32 sh -c "scripts/build-otp release && ./otp_build tests && scripts/run-smoke-tests && bin/dialyzer --build_plt --apps erts kernel stdlib"
+   # - env: Linux32
+   #   services:
+  #      - docker
+   #   script:
+   #     - ./scripts/build-docker-otp 32 sh -c "scripts/build-otp release && ./otp_build tests && scripts/run-smoke-tests && bin/dialyzer --build_plt --apps erts kernel stdlib"
 
-    - env: Linux64SmokeTest
-      script:
-        - ERL_COMPILER_OPTIONS=ssalint ./scripts/build-otp
-        - ERL_COMPILER_OPTIONS=ssalint ./otp_build tests
-        - ./scripts/run-smoke-tests
+    #- env: Linux64SmokeTest
+    #  script:
+    #    - ERL_COMPILER_OPTIONS=ssalint ./scripts/build-otp
+    #    - ERL_COMPILER_OPTIONS=ssalint ./otp_build tests
+    #    - ./scripts/run-smoke-tests
 
     - env: Linux-ppc64le-SmokeTest
       #os: linux-ppc64le
@@ -72,12 +72,12 @@ matrix:
             - xsltproc
             - libxml2-utils
             
-    - env: Linux-s390x-SmokeTest
-      arch: s390x
-      script:
-        - ./scripts/build-otp
-        - ./otp_build tests
-        - ./scripts/run-smoke-tests
+    #- env: Linux-s390x-SmokeTest
+    #  arch: s390x
+    #  script:
+    #    - ./scripts/build-otp
+    #    - ./otp_build tests
+    #    - ./scripts/run-smoke-tests
       addons:
         apt:
           update: true
@@ -93,9 +93,9 @@ matrix:
             - xsltproc
             - libxml2-utils 
 
-    - env: Linux64Docbuild
-      script:
-        - ./scripts/build-otp docs
+   # - env: Linux64Docbuild
+   #   script:
+   #     - ./scripts/build-otp docs
       deploy:
         provider: pages
         repo: erlang/cd
